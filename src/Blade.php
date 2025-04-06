@@ -120,6 +120,10 @@ class Blade implements FactoryContract
             'view.compiled' => $cachePath,
         ]));
 
+        $this->container->bindIf('blade.compiler', function ($app) use ($cachePath) {
+            return new BladeCompiler($app['files'], $cachePath);
+        });
+
         Facade::setFacadeApplication($this->container);
     }
 }
